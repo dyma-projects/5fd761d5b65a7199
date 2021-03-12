@@ -1,10 +1,10 @@
-import { Directive, ElementRef, HostListener } from "@angular/core";
+import { Directive, HostBinding, HostListener } from "@angular/core";
 
 @Directive({
   selector: "[appColor]",
 })
 export class ColorDirective {
-  constructor(private el: ElementRef<HTMLParagraphElement>) {}
+  constructor() {}
   private colors = {
     ArrowUp: "red",
     ArrowDown: "blue",
@@ -12,6 +12,7 @@ export class ColorDirective {
     ArrowRight: "purple",
   };
   @HostListener("window:keydown", ["$event"]) keyDown(event: KeyboardEvent) {
-    this.el.nativeElement.style.color = this.colors[event.code];
+    this.color = this.colors[event.code];
   }
+  @HostBinding("style.color") color: string;
 }
